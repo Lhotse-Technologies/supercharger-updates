@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root { --bg:#0a0a0a; --panel:#141414; --line:rgba(255,255,255,.08); --text:#f5f5f5; --muted:#8899a6; --accent:#0052e3; --ok:#22c55e; --r:12px; }
+  :root { --bg:#0a0a0a; --panel:#141414; --panel2:#101010; --line:rgba(255,255,255,.08); --text:#f5f5f5; --muted:#8899a6; --accent:#0052e3; --ok:#22c55e; --r:12px; }
   * { box-sizing:border-box; }
   html { color-scheme:dark; }
   body { margin:0; background:var(--bg); color:var(--text); font:15px/1.6 Inter,-apple-system,system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
@@ -21,24 +21,43 @@
   .eyebrow { display:flex; align-items:center; gap:10px; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-bottom:14px; }
   .eyebrow::before { content:""; width:7px; height:7px; border-radius:50%; background:var(--accent); }
   h1 { font-size:clamp(32px,5vw,44px); line-height:1.05; font-weight:700; letter-spacing:.01em; text-transform:uppercase; margin:0 0 10px; }
-  .sub { color:var(--muted); margin:0 0 48px; max-width:60ch; }
+  .sub { color:var(--muted); margin:0 0 44px; max-width:62ch; }
   .sub b { color:var(--text); font-weight:600; }
-  section { margin-top:40px; }
+  section { margin-top:44px; }
   h2 { font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 12px; font-weight:600; }
+  h3 { font-size:15px; font-weight:600; margin:0 0 6px; }
   .card { background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:18px 20px; }
-  .card p { margin:0 0 12px; color:#c5cdd4; }
-  .card p:last-child { margin-bottom:0; }
+  .card p { margin:0 0 12px; color:#c5cdd4; } .card p:last-child { margin-bottom:0; }
   code { font:13.5px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace; }
-  .value { display:flex; align-items:center; gap:12px; background:#000; border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
-  .value code { flex:1; color:#e6ebef; word-break:break-all; }
+  /* identifiers */
+  .ids { display:grid; grid-template-columns:150px 1fr auto; gap:0; background:var(--panel); border:1px solid var(--line); border-radius:var(--r); overflow:hidden; }
+  .ids > div { padding:13px 18px; border-bottom:1px solid var(--line); display:flex; align-items:center; min-width:0; }
+  .ids > div:nth-last-child(-n+3) { border-bottom:0; }
+  .ids .k { color:var(--muted); font-size:13px; }
+  .ids code { color:#e6ebef; word-break:break-all; }
   .copy { flex:none; font:12px/1 Inter,system-ui,sans-serif; font-weight:600; color:#0a0a0a; background:#fff; border:0; border-radius:8px; padding:8px 12px; cursor:pointer; }
-  .copy:hover { background:#e8e8e8; }
-  .copy.done { background:var(--ok); color:#fff; }
-  .hint { display:flex; gap:10px; align-items:flex-start; color:var(--muted); font-size:13.5px; margin-top:12px; }
-  .hint::before { content:""; flex:none; width:6px; height:6px; margin-top:8px; border-radius:50%; background:var(--muted); }
+  .copy:hover { background:#e8e8e8; } .copy.done { background:var(--ok); color:#fff; }
+  /* tabs */
+  .tabs { display:flex; gap:8px; margin-bottom:12px; }
+  .tab { display:flex; align-items:center; gap:10px; padding:12px 18px; border:1px solid var(--line); border-radius:var(--r); background:var(--panel2); color:var(--muted); font-weight:600; cursor:pointer; font-family:inherit; font-size:14px; }
+  .tab img { width:22px; height:22px; }
+  .tab[aria-selected="true"] { background:var(--panel); color:#fff; border-color:rgba(255,255,255,.25); }
+  .tab:hover { color:#fff; }
+  .panel[hidden] { display:none; }
+  .cases { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .case { background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:18px 20px; display:flex; flex-direction:column; gap:10px; }
+  .case p { margin:0; color:#c5cdd4; font-size:14px; }
+  .case .note { color:var(--muted); font-size:13px; }
+  .btn { display:inline-flex; align-items:center; gap:8px; align-self:flex-start; margin-top:auto; font-size:13px; font-weight:600; color:#0a0a0a; background:#fff; border-radius:8px; padding:9px 14px; }
+  .btn:hover { background:#e8e8e8; }
+  .links { list-style:none; margin:4px 0 0; padding:0; display:flex; flex-direction:column; gap:6px; }
+  .links a { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-size:13.5px; color:#dfe5ea; }
+  .links a:hover { border-color:rgba(255,255,255,.3); color:#fff; }
+  .links a span { color:var(--muted); font-size:12px; white-space:nowrap; }
+  /* versions */
   table { width:100%; border-collapse:separate; border-spacing:0; background:var(--panel); border:1px solid var(--line); border-radius:var(--r); overflow:hidden; }
   th, td { text-align:left; padding:13px 18px; border-bottom:1px solid var(--line); vertical-align:middle; }
-  th { font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:600; background:#101010; }
+  th { font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:600; background:var(--panel2); }
   tr:last-child td { border-bottom:0; }
   td.num, th.num { text-align:right; white-space:nowrap; color:var(--muted); font-variant-numeric:tabular-nums; }
   td .ver { font-weight:600; font-variant-numeric:tabular-nums; }
@@ -46,7 +65,7 @@
   .badge { display:inline-block; margin-left:10px; font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--ok); border:1px solid rgba(34,197,94,.35); border-radius:999px; padding:2px 8px; vertical-align:middle; }
   .empty td { color:var(--muted); text-align:center; padding:28px; }
   footer { padding:40px; text-align:center; color:rgba(255,255,255,.3); font-size:12px; }
-  @media (max-width:640px) { header { padding:20px; } th.opt, td.opt { display:none; } }
+  @media (max-width:640px) { header { padding:20px; } .ids { grid-template-columns:1fr auto; } .ids .k { grid-column:1 / -1; padding-bottom:0; border-bottom:0; } .cases { grid-template-columns:1fr; } th.opt, td.opt { display:none; } }
 </style>
 </head>
 <body>
@@ -57,20 +76,61 @@
   <p class="sub">Self-signed build for organisations that install the extension on managed Edge or Chrome browsers through policy. Current version: <b id="current">…</b></p>
 
   <section>
-    <h2>Install</h2>
-    <div class="card">
-      <p>Add this entry to the <code>ExtensionInstallForcelist</code> policy for Edge and/or Chrome. New versions roll out automatically; the entry never changes.</p>
-      <div class="value"><code id="policy">bgpmhbinpaagkmpdiohnnbhfhfpilpio;https://extension.lhotse.io/update.xml</code><button class="copy" data-copy="policy">Copy</button></div>
-      <div class="hint">Remove the Chrome Web Store version from managed devices. This build has its own extension ID, so both would otherwise run side by side.</div>
-      <div class="hint">Off-store force-install only applies to managed (enrolled or domain-joined) devices.</div>
+    <h2>Identifiers</h2>
+    <div class="ids">
+      <div class="k">Extension ID</div><div><code id="id-ext">bgpmhbinpaagkmpdiohnnbhfhfpilpio</code></div><div><button class="copy" data-copy="id-ext">Copy</button></div>
+      <div class="k">Update URL</div><div><code id="id-url">https://extension.lhotse.io/update.xml</code></div><div><button class="copy" data-copy="id-url">Copy</button></div>
+      <div class="k">Policy entry</div><div><code id="id-policy">bgpmhbinpaagkmpdiohnnbhfhfpilpio;https://extension.lhotse.io/update.xml</code></div><div><button class="copy" data-copy="id-policy">Copy</button></div>
     </div>
   </section>
 
   <section>
-    <h2>Update endpoint</h2>
-    <div class="card">
-      <p>The manifest every managed browser polls. It always names the current version and where to download it.</p>
-      <div class="value"><code id="endpoint">https://extension.lhotse.io/update.xml</code><button class="copy" data-copy="endpoint">Copy</button></div>
+    <h2>Install</h2>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" id="tab-chrome" aria-controls="panel-chrome" aria-selected="true"><img src="/img/chrome.svg" alt="">Chrome</button>
+      <button class="tab" role="tab" id="tab-edge" aria-controls="panel-edge" aria-selected="false"><img src="/img/edge.svg" alt="">Edge</button>
+    </div>
+
+    <div class="panel" id="panel-chrome" role="tabpanel" aria-labelledby="tab-chrome">
+      <div class="cases">
+        <div class="case">
+          <h3>Personal browser</h3>
+          <p>Install the regular version from the Chrome Web Store.</p>
+          <p class="note">The build hosted here cannot be added by hand; Chrome only accepts it through a company policy.</p>
+          <a class="btn" href="https://chromewebstore.google.com/detail/dpdlgeamfhkffnlddneikefcndmchmmf" target="_blank" rel="noopener">Open Chrome Web Store ↗</a>
+        </div>
+        <div class="case">
+          <h3>Managed by your company</h3>
+          <p>Your IT admin adds the policy entry above to the <code>ExtensionInstallForcelist</code> policy. Installs and updates then happen automatically.</p>
+          <ul class="links">
+            <li><a href="https://support.google.com/chrome/a/answer/6306504" target="_blank" rel="noopener">Google Admin console <span>force-install apps and extensions</span></a></li>
+            <li><a href="https://support.google.com/chrome/a/answer/9301891" target="_blank" rel="noopener">Enroll browsers <span>Chrome Enterprise Core</span></a></li>
+            <li><a href="https://support.google.com/chrome/a/answer/9102677" target="_blank" rel="noopener">Microsoft Intune <span>Chrome policies on Windows</span></a></li>
+            <li><a href="https://chromeenterprise.google/policies/#ExtensionInstallForcelist" target="_blank" rel="noopener">Policy reference <span>ExtensionInstallForcelist</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" id="panel-edge" role="tabpanel" aria-labelledby="tab-edge" hidden>
+      <div class="cases">
+        <div class="case">
+          <h3>Personal browser</h3>
+          <p>Install the regular version from the Chrome Web Store. Edge asks once to allow extensions from other stores.</p>
+          <p class="note">The build hosted here cannot be added by hand; Edge only accepts it through a company policy.</p>
+          <a class="btn" href="https://chromewebstore.google.com/detail/dpdlgeamfhkffnlddneikefcndmchmmf" target="_blank" rel="noopener">Open Chrome Web Store ↗</a>
+        </div>
+        <div class="case">
+          <h3>Managed by your company</h3>
+          <p>Your IT admin adds the policy entry above to the <code>ExtensionInstallForcelist</code> policy. Installs and updates then happen automatically.</p>
+          <ul class="links">
+            <li><a href="https://learn.microsoft.com/en-us/deployedge/microsoft-edge-manage-extensions-policies#force-install-an-extension" target="_blank" rel="noopener">Group Policy <span>force-install an extension</span></a></li>
+            <li><a href="https://learn.microsoft.com/en-us/intune/device-configuration/settings-catalog/configure-edge" target="_blank" rel="noopener">Microsoft Intune <span>Edge settings catalog</span></a></li>
+            <li><a href="https://learn.microsoft.com/en-us/deployedge/configure-microsoft-edge-on-mac" target="_blank" rel="noopener">macOS <span>plist and Jamf</span></a></li>
+            <li><a href="https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies#extensioninstallforcelist" target="_blank" rel="noopener">Policy reference <span>ExtensionInstallForcelist</span></a></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -87,6 +147,16 @@
   document.querySelectorAll(".copy").forEach(b => b.addEventListener("click", async () => {
     try { await navigator.clipboard.writeText(document.getElementById(b.dataset.copy).textContent.trim()); b.textContent = "Copied"; b.classList.add("done"); setTimeout(() => { b.textContent = "Copy"; b.classList.remove("done"); }, 1500); } catch (e) {}
   }));
+  const tabs = [...document.querySelectorAll(".tab")];
+  const select = id => {
+    tabs.forEach(t => { const on = t.id === id; t.setAttribute("aria-selected", on); document.getElementById(t.getAttribute("aria-controls")).hidden = !on; });
+    try { localStorage.setItem("browser-tab", id); } catch (e) {}
+  };
+  tabs.forEach(t => t.addEventListener("click", () => select(t.id)));
+  let initial = "tab-chrome";
+  try { initial = localStorage.getItem("browser-tab") || initial; } catch (e) {}
+  if (!localStorage.getItem || !localStorage.getItem("browser-tab")) { if (navigator.userAgent.includes("Edg/")) initial = "tab-edge"; }
+  select(initial);
   const origin = "https://extension.lhotse.io";
   const tbody = document.getElementById("versions");
   Promise.all([
