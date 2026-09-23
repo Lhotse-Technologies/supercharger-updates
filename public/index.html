@@ -24,6 +24,18 @@
   .sub { color:var(--muted); margin:0 0 44px; max-width:62ch; }
   .sub b { color:var(--text); font-weight:600; }
   section { margin-top:44px; }
+  .howto { border:1px solid var(--line); border-radius:var(--r); background:var(--panel2); margin-top:8px; }
+  .howto summary { list-style:none; cursor:pointer; display:flex; align-items:center; gap:14px; padding:16px 20px; }
+  .howto summary::-webkit-details-marker { display:none; }
+  .sum-title { font-weight:600; font-size:15px; }
+  .sum-hint { color:var(--muted); font-size:13px; flex:1; }
+  .chev { width:8px; height:8px; border-right:1.5px solid var(--muted); border-bottom:1.5px solid var(--muted); transform:rotate(-45deg); transition:transform .15s; }
+  .howto[open] .chev { transform:rotate(45deg); }
+  .howto[open] summary { border-bottom:1px solid var(--line); }
+  .howto-body { padding:4px 20px 24px; }
+  .howto-body section { margin-top:28px; }
+  .howto-body .cases, .howto-body .ids { background:var(--panel); }
+  .versions { margin-top:32px; }
   h2 { font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 12px; font-weight:600; }
   h3 { font-size:15px; font-weight:600; margin:0 0 6px; }
   .card { background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:18px 20px; }
@@ -67,7 +79,7 @@
   .badge { display:inline-block; margin-left:10px; font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--ok); border:1px solid rgba(34,197,94,.35); border-radius:999px; padding:2px 8px; vertical-align:middle; }
   .empty td { color:var(--muted); text-align:center; padding:28px; }
   footer { padding:40px; text-align:center; color:rgba(255,255,255,.3); font-size:12px; }
-  @media (max-width:640px) { header { padding:20px; } .ids { grid-template-columns:1fr auto; } .ids .k { grid-column:1 / -1; padding-bottom:0; border-bottom:0; } .case { grid-template-columns:1fr; } .links { align-items:flex-start; } th.opt, td.opt { display:none; } }
+  @media (max-width:640px) { header { padding:20px; } .sum-hint { display:none; } .ids { grid-template-columns:1fr auto; } .ids .k { grid-column:1 / -1; padding-bottom:0; border-bottom:0; } .case { grid-template-columns:1fr; } .links { align-items:flex-start; } th.opt, td.opt { display:none; } }
 </style>
 </head>
 <body>
@@ -77,6 +89,13 @@
   <h1>Extension for managed browsers</h1>
   <p class="sub">Self-signed build for organisations that install the extension on managed Edge or Chrome browsers through policy. Current version: <b id="current">…</b></p>
 
+  <details class="howto" id="howto">
+    <summary>
+      <span class="sum-title">How to install</span>
+      <span class="sum-hint">Extension ID, policy entry and admin guides for Chrome and Edge</span>
+      <span class="chev" aria-hidden="true"></span>
+    </summary>
+    <div class="howto-body">
   <section>
     <h2>Identifiers</h2>
     <div class="ids">
@@ -142,7 +161,10 @@
     </div>
   </section>
 
-  <section>
+    </div>
+  </details>
+
+  <section class="versions">
     <h2>Versions</h2>
     <table>
       <thead><tr><th>Version</th><th>Package</th><th class="num opt">Size</th><th class="num">Published</th></tr></thead>
@@ -165,6 +187,9 @@
   try { initial = localStorage.getItem("browser-tab") || initial; } catch (e) {}
   if (!localStorage.getItem || !localStorage.getItem("browser-tab")) { if (navigator.userAgent.includes("Edg/")) initial = "tab-edge"; }
   select(initial);
+  const howto = document.getElementById("howto");
+  try { if (location.hash === "#install" || localStorage.getItem("howto-open") === "1") howto.open = true; } catch (e) {}
+  howto.addEventListener("toggle", () => { try { localStorage.setItem("howto-open", howto.open ? "1" : "0"); } catch (e) {} });
   const origin = "https://extension.lhotse.io";
   const tbody = document.getElementById("versions");
   Promise.all([
