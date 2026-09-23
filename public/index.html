@@ -3,88 +3,67 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lhotse extension for managed browsers</title>
-<meta name="description" content="Update endpoint for the self-signed Lhotse Supercharger browser extension, for organisations that install it on managed Edge or Chrome browsers through policy.">
+<title>Lhotse extension</title>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0a0a0a; --panel: #141414; --line: rgba(255,255,255,.08);
-    --text: #f5f5f5; --muted: #8899a6; --accent: #0052e3; --ok: #22c55e; --radius: 10px;
-  }
+  :root { --bg: #0a0a0a; --panel: #141414; --line: rgba(255,255,255,.08); --text: #f5f5f5; --muted: #8899a6; --accent: #0052e3; }
   * { box-sizing: border-box; }
   html { color-scheme: dark; }
-  body { margin: 0; background: var(--bg); color: var(--text);
-    font: 15px/1.6 Inter, -apple-system, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-  a { color: inherit; }
-  header { display: flex; align-items: center; justify-content: space-between; padding: 22px 32px; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.6 Inter, -apple-system, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  header { padding: 22px 32px; }
   .logo { height: 22px; width: auto; color: #fff; display: block; }
-  header a.site { font-size: 13px; color: var(--muted); text-decoration: none; }
-  header a.site:hover { color: var(--text); }
-  main { max-width: 760px; margin: 0 auto; padding: 56px 24px 96px; }
-  .eyebrow { display: flex; align-items: center; gap: 10px; font-size: 12px; letter-spacing: .12em;
-    text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+  main { max-width: 640px; margin: 0 auto; padding: 48px 24px 96px; }
+  .eyebrow { display: flex; align-items: center; gap: 10px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
   .eyebrow::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
-  h1 { font-size: clamp(34px, 6vw, 48px); line-height: 1.05; font-weight: 700; letter-spacing: .02em;
-    text-transform: uppercase; margin: 0 0 20px; }
-  .lede { font-size: 17px; color: #c5cdd4; max-width: 60ch; margin: 0 0 40px; }
-  h2 { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 44px 0 14px; }
-  .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 22px; }
-  .card + .card { margin-top: 12px; }
-  code, pre { font: 13.5px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; }
-  code { background: rgba(255,255,255,.06); border-radius: 6px; padding: 1px 6px; }
-  pre { margin: 0; padding: 14px 16px; background: #000; border: 1px solid var(--line); border-radius: var(--radius);
-    overflow-x: auto; white-space: pre-wrap; word-break: break-all; }
-  .row { display: flex; gap: 16px; align-items: baseline; justify-content: space-between; flex-wrap: wrap; }
-  .row .k { color: var(--muted); font-size: 13px; }
-  ol { padding-left: 20px; margin: 0; } li { margin: 6px 0; } li::marker { color: var(--muted); }
-  .note { display: flex; gap: 10px; align-items: flex-start; color: var(--muted); font-size: 14px; margin-top: 14px; }
-  .note::before { content: ""; flex: none; width: 8px; height: 8px; margin-top: 7px; border-radius: 50%; background: var(--ok); }
-  footer { padding: 32px; color: rgba(255,255,255,.35); font-size: 12px; text-align: center; }
+  h1 { font-size: clamp(34px, 6vw, 48px); line-height: 1.05; font-weight: 700; letter-spacing: .02em; text-transform: uppercase; margin: 0 0 40px; }
+  h1 span { color: var(--muted); }
+  .list { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .item { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 20px; background: var(--panel); }
+  .item + .item { border-top: 1px solid var(--line); }
+  .item a:hover code { color: #fff; }
+  code { font: 14px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; color: #dfe5ea; word-break: break-all; }
+  .k { color: var(--muted); font-size: 13px; text-align: right; white-space: nowrap; }
+  .policy { margin-top: 40px; }
+  .policy .k { text-align: left; white-space: normal; margin-bottom: 8px; }
+  pre { margin: 0; padding: 14px 16px; background: #000; border: 1px solid var(--line); border-radius: 10px; overflow-x: auto; white-space: pre-wrap; word-break: break-all; }
 </style>
 </head>
 <body>
-<header>
-  <a href="https://lhotse.de" aria-label="Lhotse"><svg class="logo" role="img" aria-label="Lhotse" width="166" height="26" viewBox="0 0 166 26" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 25.8916H46.0538L42.62 21.6912H19.122L23.047 17.0229L20.3907 13.775L13.8302 21.6912H8.67062L17.825 10.5878L15.1688 7.33987L0 25.8916ZM23.0143 16.9636L25.6468 20.1614L33.5398 10.5878L30.8836 7.33987L23.0143 16.9636ZM25.675 0.945801L17.8087 10.5665L20.4323 13.775L28.3312 4.19373L25.675 0.945801Z" fill="currentColor"/><path d="M155.283 20.0571V15.9547H164.646V10.8495H155.283V6.78031H165.342V1.50936H149.082V7.02894C147.84 2.52045 144.314 0.945801 140.125 0.945801C137.691 0.945801 135.157 1.55909 133.361 2.86854V1.50936H114.237V5.37969C112.101 2.71107 108.74 0.945801 104.278 0.945801C98.16 0.945801 94.1035 4.24429 92.456 8.67818V1.50936H86.2636V10.7501H78.167V1.50936H71.9746V20.0571H62.2471V1.50936H56.0547V25.3198H78.1753V16.0128H86.2719V25.3198H92.4643V18.1593C94.1118 22.5931 98.1683 25.8916 104.286 25.8916C112.449 25.8916 116.944 20.024 116.944 13.4187C116.944 11.0236 116.348 8.73619 115.206 6.78031H120.711V25.3198H126.904V6.78031H130.985C130.96 6.99579 130.935 7.21955 130.935 7.44332C130.902 12.5154 134.735 14.0817 138.659 15.2834C141.689 16.2199 143.287 16.8498 143.287 18.6151C143.287 19.9825 142.517 20.7864 140.191 20.7864C138.129 20.7864 136.49 19.3195 136.259 17.2559H129.793C130.695 23.1567 134.959 25.8916 140.183 25.8916C144.123 25.8916 148.006 24.2424 149.074 20.7533V25.3281H165.433V20.0571H155.275H155.283ZM104.286 20.6207C100.387 20.6207 97.8206 17.6869 97.8206 13.4187C97.8206 9.15058 100.387 6.21675 104.286 6.21675C108.186 6.21675 110.752 9.15058 110.752 13.4187C110.752 17.6869 108.152 20.6207 104.286 20.6207V20.6207ZM141.391 10.9821C138.428 10.0788 137.062 9.31633 137.062 7.91572C137.062 6.64771 138.229 6.01784 139.893 6.01784C141.756 6.01784 142.824 6.8549 143.254 8.91852H149.082V16.5597C148.114 13.2115 144.844 12.0513 141.391 10.9904V10.9821Z" fill="currentColor"/></svg></a>
-  <a class="site" href="https://lhotse.de">lhotse.de</a>
-</header>
+<header><a href="https://lhotse.de" aria-label="Lhotse"><svg class="logo" role="img" aria-label="Lhotse" width="166" height="26" viewBox="0 0 166 26" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 25.8916H46.0538L42.62 21.6912H19.122L23.047 17.0229L20.3907 13.775L13.8302 21.6912H8.67062L17.825 10.5878L15.1688 7.33987L0 25.8916ZM23.0143 16.9636L25.6468 20.1614L33.5398 10.5878L30.8836 7.33987L23.0143 16.9636ZM25.675 0.945801L17.8087 10.5665L20.4323 13.775L28.3312 4.19373L25.675 0.945801Z" fill="currentColor"/><path d="M155.283 20.0571V15.9547H164.646V10.8495H155.283V6.78031H165.342V1.50936H149.082V7.02894C147.84 2.52045 144.314 0.945801 140.125 0.945801C137.691 0.945801 135.157 1.55909 133.361 2.86854V1.50936H114.237V5.37969C112.101 2.71107 108.74 0.945801 104.278 0.945801C98.16 0.945801 94.1035 4.24429 92.456 8.67818V1.50936H86.2636V10.7501H78.167V1.50936H71.9746V20.0571H62.2471V1.50936H56.0547V25.3198H78.1753V16.0128H86.2719V25.3198H92.4643V18.1593C94.1118 22.5931 98.1683 25.8916 104.286 25.8916C112.449 25.8916 116.944 20.024 116.944 13.4187C116.944 11.0236 116.348 8.73619 115.206 6.78031H120.711V25.3198H126.904V6.78031H130.985C130.96 6.99579 130.935 7.21955 130.935 7.44332C130.902 12.5154 134.735 14.0817 138.659 15.2834C141.689 16.2199 143.287 16.8498 143.287 18.6151C143.287 19.9825 142.517 20.7864 140.191 20.7864C138.129 20.7864 136.49 19.3195 136.259 17.2559H129.793C130.695 23.1567 134.959 25.8916 140.183 25.8916C144.123 25.8916 148.006 24.2424 149.074 20.7533V25.3281H165.433V20.0571H155.275H155.283ZM104.286 20.6207C100.387 20.6207 97.8206 17.6869 97.8206 13.4187C97.8206 9.15058 100.387 6.21675 104.286 6.21675C108.186 6.21675 110.752 9.15058 110.752 13.4187C110.752 17.6869 108.152 20.6207 104.286 20.6207V20.6207ZM141.391 10.9821C138.428 10.0788 137.062 9.31633 137.062 7.91572C137.062 6.64771 138.229 6.01784 139.893 6.01784C141.756 6.01784 142.824 6.8549 143.254 8.91852H149.082V16.5597C148.114 13.2115 144.844 12.0513 141.391 10.9904V10.9821Z" fill="currentColor"/></svg></a></header>
 <main>
   <div class="eyebrow">Lhotse Supercharger</div>
-  <h1>Extension for managed browsers.</h1>
-  <p class="lede">This endpoint hosts the self-signed build of the Lhotse Supercharger extension for
-  organisations that install it on managed Edge or Chrome browsers through policy. New versions
-  roll out automatically; nothing on this page ever changes.</p>
+  <h1>Extension <span id="version">&nbsp;</span></h1>
 
-  <h2>Install</h2>
-  <div class="card">
-    <p style="margin:0 0 12px">Add this entry to the <code>ExtensionInstallForcelist</code> policy for Edge and/or Chrome
-    (Intune, GPO or your MDM):</p>
-    <pre>bgpmhbinpaagkmpdiohnnbhfhfpilpio;https://extension.lhotse.io/update.xml</pre>
-    <div class="note">Remove the Chrome Web Store version from managed devices. This build has its own extension ID, so both would otherwise run side by side.</div>
-    <div class="note">Off-store force-install only applies to managed (enrolled or domain-joined) devices.</div>
+  <div class="list">
+    <div class="item"><a href="/update.xml"><code>/update.xml</code></a><span class="k">update manifest</span></div>
+    <div class="item" id="crx-row"><a id="crx-link" href="#"><code id="crx-path">/supercharger-&lt;version&gt;.crx</code></a><span class="k">signed package</span></div>
   </div>
 
-  <h2>Files</h2>
-  <div class="card row">
-    <div><a href="/update.xml"><code>/update.xml</code></a></div>
-    <div class="k">Update manifest the browser polls. Its address never changes.</div>
-  </div>
-  <div class="card row">
-    <div><code>/supercharger-&lt;version&gt;.crx</code></div>
-    <div class="k">Signed package, one file per version. The current one is named inside the manifest.</div>
-  </div>
-
-  <h2>How updates work</h2>
-  <div class="card">
-    <ol>
-      <li>The browser reads <code>update.xml</code> on install and every few hours afterwards.</li>
-      <li>When the manifest lists a higher version than the one installed, the browser downloads that package.</li>
-      <li>The signature is checked against the extension ID in your policy, then the extension is updated silently.</li>
-    </ol>
+  <div class="policy">
+    <div class="k">ExtensionInstallForcelist entry</div>
+    <pre id="policy">bgpmhbinpaagkmpdiohnnbhfhfpilpio;https://extension.lhotse.io/update.xml</pre>
   </div>
 </main>
-<footer>Lhotse Technologies GmbH · Berlin</footer>
+<script>
+  fetch("/update.xml", { cache: "no-store" })
+    .then(r => r.ok ? r.text() : Promise.reject(r.status))
+    .then(t => {
+      const doc = new DOMParser().parseFromString(t, "application/xml");
+      const uc = doc.querySelector("updatecheck");
+      const version = uc && uc.getAttribute("version");
+      const codebase = uc && uc.getAttribute("codebase");
+      if (version) document.getElementById("version").textContent = version;
+      if (codebase) {
+        const path = new URL(codebase).pathname;
+        document.getElementById("crx-path").textContent = path;
+        document.getElementById("crx-link").href = path;
+      }
+    })
+    .catch(() => { document.getElementById("version").textContent = "not published yet"; });
+</script>
 </body>
 </html>
