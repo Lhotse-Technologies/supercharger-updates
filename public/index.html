@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  :root { --bg: #0a0a0a; --panel: #141414; --line: rgba(255,255,255,.08); --text: #f5f5f5; --muted: #8899a6; --accent: #0052e3; }
+  :root { --bg: #0a0a0a; --panel: #141414; --line: rgba(255,255,255,.08); --text: #f5f5f5; --muted: #8899a6; --accent: #0052e3; --ok: #22c55e; }
   * { box-sizing: border-box; }
   html { color-scheme: dark; }
   body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.6 Inter, -apple-system, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
@@ -24,6 +24,8 @@
   .list { border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
   .item { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 16px 20px; background: var(--panel); }
   .item + .item { border-top: 1px solid var(--line); }
+  .item.current code { color: #fff; }
+  .item.current .k { color: var(--ok, #22c55e); }
   .item a:hover code { color: #fff; }
   code { font: 14px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; color: #dfe5ea; word-break: break-all; }
   .k { color: var(--muted); font-size: 13px; text-align: right; white-space: nowrap; }
@@ -38,9 +40,8 @@
   <div class="eyebrow">Lhotse Supercharger</div>
   <h1>Extension <span id="version">&nbsp;</span></h1>
 
-  <div class="list">
+  <div class="list" id="files">
     <div class="item"><a href="/update.xml"><code>/update.xml</code></a><span class="k">update manifest</span></div>
-    <div class="item" id="crx-row"><a id="crx-link" href="#"><code id="crx-path">/supercharger-&lt;version&gt;.crx</code></a><span class="k">signed package</span></div>
   </div>
 
   <div class="policy">
@@ -49,21 +50,26 @@
   </div>
 </main>
 <script>
-  fetch("/update.xml", { cache: "no-store" })
-    .then(r => r.ok ? r.text() : Promise.reject(r.status))
-    .then(t => {
-      const doc = new DOMParser().parseFromString(t, "application/xml");
-      const uc = doc.querySelector("updatecheck");
-      const version = uc && uc.getAttribute("version");
-      const codebase = uc && uc.getAttribute("codebase");
-      if (version) document.getElementById("version").textContent = version;
-      if (codebase) {
-        const path = new URL(codebase).pathname;
-        document.getElementById("crx-path").textContent = path;
-        document.getElementById("crx-link").href = path;
-      }
-    })
-    .catch(() => { document.getElementById("version").textContent = "not published yet"; });
+  const list = document.getElementById("files");
+  const row = (path, label, current) => {
+    const div = document.createElement("div");
+    div.className = "item" + (current ? " current" : "");
+    div.innerHTML = '<a href="' + path + '"><code>' + path + '</code></a><span class="k">' + label + '</span>';
+    list.appendChild(div);
+  };
+  Promise.all([
+    fetch("/update.xml", { cache: "no-store" }).then(r => r.ok ? r.text() : "").catch(() => ""),
+    fetch("/versions.json", { cache: "no-store" }).then(r => r.ok ? r.json() : { versions: [] }).catch(() => ({ versions: [] }))
+  ]).then(([xml, data]) => {
+    const uc = xml && new DOMParser().parseFromString(xml, "application/xml").querySelector("updatecheck");
+    const current = uc ? uc.getAttribute("version") : null;
+    document.getElementById("version").textContent = current || "not published yet";
+    for (const v of data.versions || []) {
+      const mb = v.size ? (v.size / 1048576).toFixed(1) + " MB" : "";
+      const date = v.publishedAt ? v.publishedAt.slice(0, 10) : "";
+      row(v.path, [v.version === current ? "current" : "", mb, date].filter(Boolean).join(" · "), v.version === current);
+    }
+  });
 </script>
 </body>
 </html>
