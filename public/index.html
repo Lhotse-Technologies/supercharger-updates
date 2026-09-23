@@ -9,68 +9,72 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root { --bg:#0a0a0a; --panel:#121212; --panel2:#0e0e0e; --line:rgba(255,255,255,.08); --text:#f5f5f5; --muted:#8899a6; --accent:#0052e3; --ok:#22c55e; --r:8px; }
+  :root { --bg:#0a0a0a; --panel:#141414; --panel2:#101010; --line:rgba(255,255,255,.08); --text:#f5f5f5; --muted:#8899a6; --accent:#0052e3; --ok:#22c55e; --r:12px; }
   * { box-sizing:border-box; }
   html { color-scheme:dark; }
-  body { margin:0; background:var(--bg); color:var(--text); font:14px/1.5 Inter,-apple-system,system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  body { margin:0; background:var(--bg); color:var(--text); font:15px/1.6 Inter,-apple-system,system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
   a { color:inherit; text-decoration:none; }
-  header { display:flex; align-items:center; justify-content:space-between; padding:18px 28px; }
-  .logo { height:18px; width:auto; color:#fff; display:block; }
-  header .site { font-size:12px; color:var(--muted); } header .site:hover { color:#fff; }
-  main { max-width:760px; margin:0 auto; padding:24px 20px 80px; }
-  .eyebrow { display:flex; align-items:center; gap:8px; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-bottom:8px; }
-  .eyebrow::before { content:""; width:6px; height:6px; border-radius:50%; background:var(--accent); }
-  h1 { font-size:26px; line-height:1.15; font-weight:700; letter-spacing:-.01em; margin:0 0 6px; }
-  .sub { color:var(--muted); margin:0 0 28px; max-width:64ch; font-size:13.5px; }
+  header { display:flex; align-items:center; justify-content:space-between; padding:24px 40px; }
+  .logo { height:22px; width:auto; color:#fff; display:block; }
+  header .site { font-size:13px; color:var(--muted); } header .site:hover { color:#fff; }
+  main { max-width:880px; margin:0 auto; padding:40px 24px 120px; }
+  .eyebrow { display:flex; align-items:center; gap:10px; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-bottom:14px; }
+  .eyebrow::before { content:""; width:7px; height:7px; border-radius:50%; background:var(--accent); }
+  h1 { font-size:clamp(32px,5vw,44px); line-height:1.05; font-weight:700; letter-spacing:.01em; text-transform:uppercase; margin:0 0 10px; }
+  .sub { color:var(--muted); margin:0 0 44px; max-width:62ch; }
   .sub b { color:var(--text); font-weight:600; }
-  section { margin-top:28px; }
-  h2 { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 8px; font-weight:600; }
-  h3 { font-size:13.5px; font-weight:600; margin:0 0 4px; }
-  code { font:12.5px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace; }
+  section { margin-top:44px; }
+  h2 { font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin:0 0 12px; font-weight:600; }
+  h3 { font-size:15px; font-weight:600; margin:0 0 6px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:18px 20px; }
+  .card p { margin:0 0 12px; color:#c5cdd4; } .card p:last-child { margin-bottom:0; }
+  code { font:13.5px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace; }
   /* identifiers */
-  .ids { display:grid; grid-template-columns:110px 1fr auto; background:var(--panel); border:1px solid var(--line); border-radius:var(--r); overflow:hidden; }
-  .ids > div { padding:8px 12px; border-bottom:1px solid var(--line); display:flex; align-items:center; min-width:0; }
+  .ids { display:grid; grid-template-columns:150px 1fr auto; gap:0; background:var(--panel); border:1px solid var(--line); border-radius:var(--r); overflow:hidden; }
+  .ids > div { padding:13px 18px; border-bottom:1px solid var(--line); display:flex; align-items:center; min-width:0; }
   .ids > div:nth-last-child(-n+3) { border-bottom:0; }
-  .ids .k { color:var(--muted); font-size:12.5px; }
+  .ids .k { color:var(--muted); font-size:13px; }
   .ids code { color:#e6ebef; word-break:break-all; }
-  .copy { flex:none; font:11px/1 Inter,system-ui,sans-serif; font-weight:600; color:#0a0a0a; background:#fff; border:0; border-radius:6px; padding:6px 9px; cursor:pointer; }
+  .copy { flex:none; font:12px/1 Inter,system-ui,sans-serif; font-weight:600; color:#0a0a0a; background:#fff; border:0; border-radius:8px; padding:8px 12px; cursor:pointer; }
   .copy:hover { background:#e8e8e8; } .copy.done { background:var(--ok); color:#fff; }
   /* tabs */
-  .tabs { display:flex; gap:6px; margin-bottom:8px; }
-  .tab { display:flex; align-items:center; gap:8px; padding:7px 12px; border:1px solid var(--line); border-radius:var(--r); background:var(--panel2); color:var(--muted); font-weight:600; cursor:pointer; font-family:inherit; font-size:13px; }
-  .tab img { width:16px; height:16px; }
-  .tab[aria-selected="true"] { background:var(--panel); color:#fff; border-color:rgba(255,255,255,.22); }
+  .tabs { display:flex; gap:8px; margin-bottom:12px; }
+  .tab { display:flex; align-items:center; gap:10px; padding:12px 18px; border:1px solid var(--line); border-radius:var(--r); background:var(--panel2); color:var(--muted); font-weight:600; cursor:pointer; font-family:inherit; font-size:14px; }
+  .tab img { width:22px; height:22px; }
+  .tab[aria-selected="true"] { background:var(--panel); color:#fff; border-color:rgba(255,255,255,.25); }
   .tab:hover { color:#fff; }
   .panel[hidden] { display:none; }
-  .cases { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
-  .case { background:var(--panel); border:1px solid var(--line); border-radius:var(--r); padding:12px 14px; }
-  .case p { margin:0 0 6px; color:#c5cdd4; font-size:13px; }
-  .case .note { color:var(--muted); font-size:12px; }
-  .btn { display:inline-block; margin-top:4px; font-size:12px; font-weight:600; color:#0a0a0a; background:#fff; border-radius:6px; padding:6px 10px; }
+  .cases { background:var(--panel); border:1px solid var(--line); border-radius:var(--r); overflow:hidden; }
+  .case { display:grid; grid-template-columns:1fr auto; gap:24px; align-items:center; padding:18px 20px; }
+  .case + .case { border-top:1px solid var(--line); }
+  .case p { margin:0; color:#c5cdd4; font-size:14px; }
+  .case .note { color:var(--muted); font-size:13px; margin-top:4px; }
+  .btn { display:inline-flex; align-items:center; gap:8px; white-space:nowrap; font-size:13px; font-weight:600; color:#0a0a0a; background:#fff; border-radius:8px; padding:9px 14px; }
   .btn:hover { background:#e8e8e8; }
-  .links { list-style:none; margin:6px 0 0; padding:0; font-size:12.5px; }
-  .links li { padding:3px 0; }
-  .links a { color:#dfe5ea; border-bottom:1px solid rgba(255,255,255,.18); }
-  .links a:hover { color:#fff; border-color:#fff; }
-  .links span { color:var(--muted); margin-left:6px; }
+  .links { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px; align-items:flex-end; }
+  .links a { display:inline-flex; align-items:baseline; gap:8px; font-size:13.5px; color:#dfe5ea; white-space:nowrap; }
+  .links a::after { content:"↗"; color:var(--muted); font-size:12px; }
+  .links a:hover { color:#fff; }
+  .links a span { color:var(--muted); font-size:12px; }
   /* versions */
-  table { width:100%; border-collapse:separate; border-spacing:0; background:var(--panel); border:1px solid var(--line); border-radius:var(--r); overflow:hidden; font-size:13px; }
-  th, td { text-align:left; padding:8px 12px; border-bottom:1px solid var(--line); vertical-align:middle; }
-  th { font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:600; background:var(--panel2); }
+  table { width:100%; border-collapse:separate; border-spacing:0; background:var(--panel); border:1px solid var(--line); border-radius:var(--r); overflow:hidden; }
+  th, td { text-align:left; padding:13px 18px; border-bottom:1px solid var(--line); vertical-align:middle; }
+  th { font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:600; background:var(--panel2); }
   tr:last-child td { border-bottom:0; }
   td.num, th.num { text-align:right; white-space:nowrap; color:var(--muted); font-variant-numeric:tabular-nums; }
   td .ver { font-weight:600; font-variant-numeric:tabular-nums; }
   td a code { color:#c5cdd4; } td a:hover code { color:#fff; }
-  .badge { display:inline-block; margin-left:8px; font-size:10px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--ok); border:1px solid rgba(34,197,94,.35); border-radius:999px; padding:1px 6px; vertical-align:middle; }
-  .empty td { color:var(--muted); text-align:center; padding:20px; }
-  footer { padding:28px; text-align:center; color:rgba(255,255,255,.3); font-size:11px; }
-  @media (max-width:640px) { header { padding:16px; } .ids { grid-template-columns:1fr auto; } .ids .k { grid-column:1 / -1; padding-bottom:0; border-bottom:0; } .cases { grid-template-columns:1fr; } th.opt, td.opt { display:none; } }
+  .badge { display:inline-block; margin-left:10px; font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--ok); border:1px solid rgba(34,197,94,.35); border-radius:999px; padding:2px 8px; vertical-align:middle; }
+  .empty td { color:var(--muted); text-align:center; padding:28px; }
+  footer { padding:40px; text-align:center; color:rgba(255,255,255,.3); font-size:12px; }
+  @media (max-width:640px) { header { padding:20px; } .ids { grid-template-columns:1fr auto; } .ids .k { grid-column:1 / -1; padding-bottom:0; border-bottom:0; } .case { grid-template-columns:1fr; } .links { align-items:flex-start; } th.opt, td.opt { display:none; } }
 </style>
 </head>
 <body>
 <header><a href="https://lhotse.de" aria-label="Lhotse"><svg class="logo" role="img" aria-label="Lhotse" width="166" height="26" viewBox="0 0 166 26" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 25.8916H46.0538L42.62 21.6912H19.122L23.047 17.0229L20.3907 13.775L13.8302 21.6912H8.67062L17.825 10.5878L15.1688 7.33987L0 25.8916ZM23.0143 16.9636L25.6468 20.1614L33.5398 10.5878L30.8836 7.33987L23.0143 16.9636ZM25.675 0.945801L17.8087 10.5665L20.4323 13.775L28.3312 4.19373L25.675 0.945801Z" fill="currentColor"/><path d="M155.283 20.0571V15.9547H164.646V10.8495H155.283V6.78031H165.342V1.50936H149.082V7.02894C147.84 2.52045 144.314 0.945801 140.125 0.945801C137.691 0.945801 135.157 1.55909 133.361 2.86854V1.50936H114.237V5.37969C112.101 2.71107 108.74 0.945801 104.278 0.945801C98.16 0.945801 94.1035 4.24429 92.456 8.67818V1.50936H86.2636V10.7501H78.167V1.50936H71.9746V20.0571H62.2471V1.50936H56.0547V25.3198H78.1753V16.0128H86.2719V25.3198H92.4643V18.1593C94.1118 22.5931 98.1683 25.8916 104.286 25.8916C112.449 25.8916 116.944 20.024 116.944 13.4187C116.944 11.0236 116.348 8.73619 115.206 6.78031H120.711V25.3198H126.904V6.78031H130.985C130.96 6.99579 130.935 7.21955 130.935 7.44332C130.902 12.5154 134.735 14.0817 138.659 15.2834C141.689 16.2199 143.287 16.8498 143.287 18.6151C143.287 19.9825 142.517 20.7864 140.191 20.7864C138.129 20.7864 136.49 19.3195 136.259 17.2559H129.793C130.695 23.1567 134.959 25.8916 140.183 25.8916C144.123 25.8916 148.006 24.2424 149.074 20.7533V25.3281H165.433V20.0571H155.275H155.283ZM104.286 20.6207C100.387 20.6207 97.8206 17.6869 97.8206 13.4187C97.8206 9.15058 100.387 6.21675 104.286 6.21675C108.186 6.21675 110.752 9.15058 110.752 13.4187C110.752 17.6869 108.152 20.6207 104.286 20.6207V20.6207ZM141.391 10.9821C138.428 10.0788 137.062 9.31633 137.062 7.91572C137.062 6.64771 138.229 6.01784 139.893 6.01784C141.756 6.01784 142.824 6.8549 143.254 8.91852H149.082V16.5597C148.114 13.2115 144.844 12.0513 141.391 10.9904V10.9821Z" fill="currentColor"/></svg></a><a class="site" href="https://lhotse.de">lhotse.de</a></header>
 <main>
-    <h1>Lhotse extension for managed browsers</h1>
+  <div class="eyebrow">Lhotse Supercharger</div>
+  <h1>Extension for managed browsers</h1>
   <p class="sub">Self-signed build for organisations that install the extension on managed Edge or Chrome browsers through policy. Current version: <b id="current">…</b></p>
 
   <section>
@@ -92,14 +96,19 @@
     <div class="panel" id="panel-chrome" role="tabpanel" aria-labelledby="tab-chrome">
       <div class="cases">
         <div class="case">
-          <h3>Personal browser</h3>
-          <p>Install from the Chrome Web Store.</p>
-          <p class="note">Chrome accepts the build hosted here only through a company policy.</p>
+          <div>
+            <h3>Personal browser</h3>
+            <p>Install from the Chrome Web Store.</p>
+            <p class="note">Chrome accepts the build hosted here only through a company policy.</p>
+          </div>
           <a class="btn" href="https://chromewebstore.google.com/detail/dpdlgeamfhkffnlddneikefcndmchmmf" target="_blank" rel="noopener">Chrome Web Store ↗</a>
         </div>
         <div class="case">
-          <h3>Managed by your company</h3>
-          <p>Your IT admin adds the policy entry above to <code>ExtensionInstallForcelist</code>. Installs and updates are automatic.</p>
+          <div>
+            <h3>Managed by your company</h3>
+            <p>Your IT admin adds the policy entry above to <code>ExtensionInstallForcelist</code>.</p>
+            <p class="note">Installs and updates are automatic. Guides for the admin:</p>
+          </div>
           <ul class="links">
             <li><a href="https://support.google.com/chrome/a/answer/6306504" target="_blank" rel="noopener">Google Admin console <span>force-install apps and extensions</span></a></li>
             <li><a href="https://support.google.com/chrome/a/answer/9301891" target="_blank" rel="noopener">Enroll browsers <span>Chrome Enterprise Core</span></a></li>
@@ -113,14 +122,19 @@
     <div class="panel" id="panel-edge" role="tabpanel" aria-labelledby="tab-edge" hidden>
       <div class="cases">
         <div class="case">
-          <h3>Personal browser</h3>
-          <p>Install from the Chrome Web Store. Edge asks once to allow extensions from other stores.</p>
-          <p class="note">Edge accepts the build hosted here only through a company policy.</p>
+          <div>
+            <h3>Personal browser</h3>
+            <p>Install from the Chrome Web Store. Edge asks once to allow extensions from other stores.</p>
+            <p class="note">Edge accepts the build hosted here only through a company policy.</p>
+          </div>
           <a class="btn" href="https://chromewebstore.google.com/detail/dpdlgeamfhkffnlddneikefcndmchmmf" target="_blank" rel="noopener">Chrome Web Store ↗</a>
         </div>
         <div class="case">
-          <h3>Managed by your company</h3>
-          <p>Your IT admin adds the policy entry above to <code>ExtensionInstallForcelist</code>. Installs and updates are automatic.</p>
+          <div>
+            <h3>Managed by your company</h3>
+            <p>Your IT admin adds the policy entry above to <code>ExtensionInstallForcelist</code>.</p>
+            <p class="note">Installs and updates are automatic. Guides for the admin:</p>
+          </div>
           <ul class="links">
             <li><a href="https://learn.microsoft.com/en-us/deployedge/microsoft-edge-manage-extensions-policies#force-install-an-extension" target="_blank" rel="noopener">Group Policy <span>force-install an extension</span></a></li>
             <li><a href="https://learn.microsoft.com/en-us/intune/device-configuration/settings-catalog/configure-edge" target="_blank" rel="noopener">Microsoft Intune <span>Edge settings catalog</span></a></li>
