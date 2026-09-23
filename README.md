@@ -15,8 +15,8 @@ Served by Vercel at `https://extension.lhotse.io`.
 - `releases` is the branch Vercel deploys to production. The "Sign CRX for policy install"
   workflow in `Lhotse-Technologies/Supercharger` pushes the signed files to it after every
   production release, using a deploy key. Nobody edits the extension files by hand.
-- `main` is protected by the organisation rule that requires pull requests, which is why the
-  workflow cannot push to it. Changes to the page itself go to `releases` through a pull request;
-  `main` only mirrors the site scaffold.
+- `main` exists only because GitHub needs a default branch and the organisation rule protects
+  it, which is why the workflow cannot push there. Nothing deploys from it and nothing needs to be
+  kept in sync with it. Changes to the page itself go to `releases`.
 
 To roll back a version, revert the publishing commit on `releases`.
