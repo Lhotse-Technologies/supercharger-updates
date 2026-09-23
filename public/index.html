@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lhotse extension for managed browsers</title>
+<style>
+  body { font: 16px/1.5 system-ui, sans-serif; max-width: 42rem; margin: 3rem auto; padding: 0 1rem; color: #1a1a1a; }
+  code, pre { font: 14px/1.5 ui-monospace, monospace; background: #f4f4f4; border-radius: 4px; }
+  code { padding: 0 .3em; } pre { padding: .75rem 1rem; overflow-x: auto; }
+  h1 { font-size: 1.5rem; } h2 { font-size: 1.15rem; margin-top: 2rem; }
+</style>
+<h1>Lhotse extension for managed browsers</h1>
+<p>This site hosts the self-signed build of the Lhotse Supercharger browser extension for
+organisations that install it on managed Edge or Chrome browsers through policy.</p>
+
+<h2>Files</h2>
+<ul>
+  <li><a href="/update.xml"><code>/update.xml</code></a>: the update manifest browsers poll. Its address never changes.</li>
+  <li><code>/supercharger-&lt;version&gt;.crx</code>: the signed packages, one per version. The current one is named inside the manifest.</li>
+</ul>
+
+<h2>Install on managed devices</h2>
+<p>Add this entry to the <code>ExtensionInstallForcelist</code> policy for Edge and/or Chrome
+(Intune, GPO or your MDM). Nothing else is needed; new versions roll out automatically.</p>
+<pre>bgpmhbinpaagkmpdiohnnbhfhfpilpio;https://extension.lhotse.io/update.xml</pre>
+<p>This build has its own extension ID and is separate from the Chrome Web Store listing.
+Remove the store version from managed devices so users do not end up with two copies.
+Off-store force-install only applies to managed (enrolled or domain-joined) devices.</p>
+</html>
