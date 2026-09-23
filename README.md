@@ -10,6 +10,13 @@ Served by Vercel at `https://extension.lhotse.io`.
   Its address never changes and is what customers put into their policy entry.
 - `public/supercharger-<version>.crx` are the signed packages, one per version.
 
-Nobody edits this repo by hand. The "Sign CRX for policy install" workflow in
-`Lhotse-Technologies/Supercharger` pushes the files here after every production release,
-and Vercel deploys the commit. To roll back a version, revert the commit.
+## Branches
+
+- `releases` is the branch Vercel deploys to production. The "Sign CRX for policy install"
+  workflow in `Lhotse-Technologies/Supercharger` pushes the signed files to it after every
+  production release, using a deploy key. Nobody edits the extension files by hand.
+- `main` is protected by the organisation rule that requires pull requests, which is why the
+  workflow cannot push to it. Changes to the page itself go to `releases` through a pull request;
+  `main` only mirrors the site scaffold.
+
+To roll back a version, revert the publishing commit on `releases`.
