@@ -1,6 +1,12 @@
 {
   "versions": [
     {
+      "version": "9.3.2",
+      "path": "/supercharger-9.3.2.crx",
+      "size": 7327188,
+      "publishedAt": "2026-10-21T15:26:15+00:00"
+    },
+    {
       "version": "9.3.1",
       "path": "/supercharger-9.3.1.crx",
       "size": 7327164,
